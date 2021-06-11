@@ -71,7 +71,12 @@ if mountpoint -q $srcpath; then
             fi
         done
     fi 
-    
+    # adding code to backup timemachine files
+    # only one backup iteration since timemachine has it already built in.
+    #
+    echo "Syncing Time Machine files..."
+    rsync -aEHvq --delete /timemachine/ ${destpath}timemachinebackup/
+
     # remount backup drive as read-only
     umount $destpath
     mount -r -U d0f558ca-571b-4db7-9cef-81bd2f4d2482 $destpath
